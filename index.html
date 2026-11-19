@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browser-based visual prototype of a laser-grid child-safety socket concept.">
+    <title>Smart Child Safety Socket</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="page-header">
+        <div>
+            <p class="eyebrow">INTERACTIVE CONCEPT PROTOTYPE</p>
+            <h1>Smart Child Safety Socket</h1>
+            <p class="subtitle">Drag either figure into the detection zone and observe the laser receivers.</p>
+        </div>
+        
+    </header>
+
+    <main class="dashboard">
+        <section class="simulation-card" aria-labelledby="simulation-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="simulation-title">Detection chamber</h2>
+                    <p>Transmitter and socket share the left wall; receivers are mounted on the right wall.</p>
+                </div>
+            </div>
+
+            <div class="stage-wrap">
+                <div class="stage" id="stage" aria-label="Drag the child or adult figure between the two walls">
+                    <div class="ceiling-line"></div>
+                    <div class="floor"></div>
+
+                    <div class="wall left-wall">
+                        <span class="wall-stamp">TX</span>
+                    </div>
+                    <div class="wall right-wall">
+                        <span class="wall-stamp">RX</span>
+                    </div>
+
+                    <span class="wall-caption left-caption">TRANSMITTER + SOCKET WALL</span>
+                    <span class="wall-caption right-caption">RECEIVER WALL</span>
+
+                    <div class="detection-zone" aria-hidden="true"></div>
+
+                    <div class="beam-system" aria-hidden="true">
+                        <div class="transmitter" style="--beam-y: 75px"></div>
+                        <div class="transmitter" style="--beam-y: 130px"></div>
+                        <div class="transmitter" style="--beam-y: 185px"></div>
+                        <div class="transmitter" style="--beam-y: 240px"></div>
+                        <div class="transmitter" style="--beam-y: 295px"></div>
+                        <div class="transmitter" style="--beam-y: 350px"></div>
+                        <div class="transmitter" style="--beam-y: 405px"></div>
+
+                        <div class="laser" data-y="75"></div>
+                        <div class="laser" data-y="130"></div>
+                        <div class="laser" data-y="185"></div>
+                        <div class="laser" data-y="240"></div>
+                        <div class="laser" data-y="295"></div>
+                        <div class="laser" data-y="350"></div>
+                        <div class="laser" data-y="405"></div>
+
+                        <div class="receiver" style="--beam-y: 75px"></div>
+                        <div class="receiver" style="--beam-y: 130px"></div>
+                        <div class="receiver" style="--beam-y: 185px"></div>
+                        <div class="receiver" style="--beam-y: 240px"></div>
+                        <div class="receiver" style="--beam-y: 295px"></div>
+                        <div class="receiver" style="--beam-y: 350px"></div>
+                        <div class="receiver" style="--beam-y: 405px"></div>
+                    </div>
+
+                    <div class="power-label">SOCKET POWER</div>
+                    <div class="power-light" id="powerLight" aria-label="Simulated power status"></div>
+                    <div class="plug" aria-label="Illustration of a wall socket">
+                        <span class="socket-hole hole-one"></span>
+                        <span class="socket-hole hole-two"></span>
+                        <span class="socket-hole hole-three"></span>
+                    </div>
+
+                    <div class="person child" id="child" role="img" aria-label="Draggable child figure" tabindex="0">
+                        <span class="person-head"></span>
+                        <span class="person-body"></span>
+                        <span class="person-arm arm-left"></span>
+                        <span class="person-arm arm-right"></span>
+                        <span class="person-leg leg-left"></span>
+                        <span class="person-leg leg-right"></span>
+                        <span class="person-name">CHILD</span>
+                    </div>
+
+                    <div class="person adult" id="adult" role="img" aria-label="Draggable adult figure" tabindex="0">
+                        <span class="person-head"></span>
+                        <span class="person-body"></span>
+                        <span class="person-arm arm-left"></span>
+                        <span class="person-arm arm-right"></span>
+                        <span class="person-leg leg-left"></span>
+                        <span class="person-leg leg-right"></span>
+                        <span class="person-name">ADULT</span>
+                    </div>
+
+                    <div class="stage-hint">Drag a figure into the space between the walls</div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <span><i class="legend-dot laser-dot"></i> Active laser beam</span>
+                <span><i class="legend-dot blocked-dot"></i> Interrupted beam</span>
+                <span><i class="legend-dot receiver-dot"></i> Receiver signal</span>
+            </div>
+        </section>
+
+        <aside class="monitor-card" aria-labelledby="monitor-title">
+            <h2 id="monitor-title">System monitoring</h2>
+
+            <div class="status-box">
+                <span class="metric-label">DETECTED OBJECT</span>
+                <strong id="detection">No person</strong>
+                <small id="detectionDetail">Detection area is clear</small>
+            </div>
+
+            <div class="status-grid">
+                <div class="metric">
+                    <span class="metric-label">INTERRUPTED</span>
+                    <strong id="blockedCount">0 / 7</strong>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">ACTIVE RX</span>
+                    <strong id="activeCount">7</strong>
+                </div>
+            </div>
+
+            <div class="status-box">
+                <span class="metric-label">CLASSIFICATION</span>
+                <strong id="classification">CLEAR AREA</strong>
+            </div>
+
+            <div class="power-status" id="powerStatusBox">
+                <span class="power-status-light" id="powerStatusLight"></span>
+                <div>
+                    <span class="metric-label">SIMULATED POWER</span>
+                    <strong id="powerStatus">CURRENT FLOWING</strong>
+                </div>
+            </div>
+
+            
+
+            <button class="reset-button" id="resetButton" type="button">Reset simulation</button>
+        </aside>
+    </main>
+
+    
+</body>
+</html>
